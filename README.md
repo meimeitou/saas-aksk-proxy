@@ -8,5 +8,5 @@ xcaddy build \
 
 ./caddy list-modules | grep saas
 
- ./caddy run --config example/Caddyfile
+./caddy run --config example/Caddyfile
 ```
