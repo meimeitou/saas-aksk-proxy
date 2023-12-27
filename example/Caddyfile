@@ -1,13 +1,12 @@
-http://localhost:8181 {
+http://:8181 {
     route {
         saas_aksk_proxy {
-            access_key Fad3mbhh9NwadtEd7t0ekFp5HwrNJiDc
-            secret_key 5MLR15LYGn8IeTHQwPs7tZyJslGqNZmYI6g8eHETGrWZYZ6J7U9Ak8CrRlSyCEMT
+            access_key ZksE5ZSXmn9s6Sex7vJiJq2zIKK09Zx5
+            secret_key wXdRsVvEWMPwJe9w9OvyvKEwU15T1OzilhHSBEqnf8H3FAICNiEvDkd6feqT9aSf
         }
 	}
-    reverse_proxy * https://test.net {
-        # header_up Host {http.request.host}
-        header_up Host test.net
+    reverse_proxy * https://api-fake.dns.qihoo.net {
+        header_up Host api-fake.dns.qihoo.net
         header_up X-Real-IP {http.request.remote}
         header_up X-Forwarded-Port {http.request.port}
     }

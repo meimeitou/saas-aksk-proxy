@@ -24,6 +24,10 @@ const (
 	HeaderXContentSha256 = "X-Sdk-Content-Sha256"
 )
 
+var (
+	SignedHeadersDefault = map[string]bool{"x-sdk-date": true}
+)
+
 func hmacsha256(keyByte []byte, dataStr string) ([]byte, error) {
 	hm := hmac.New(sha256.New, []byte(keyByte))
 	if _, err := hm.Write([]byte(dataStr)); err != nil {
@@ -111,7 +115,9 @@ func CanonicalHeaders(request *http.Request, signerHeaders []string) string {
 func SignedHeaders(r *http.Request) []string {
 	var signedHeaders []string
 	for key := range r.Header {
-		signedHeaders = append(signedHeaders, strings.ToLower(key))
+		if _, ok := SignedHeadersDefault[strings.ToLower(key)]; ok {
+			signedHeaders = append(signedHeaders, strings.ToLower(key))
+		}
 	}
 	sort.Strings(signedHeaders)
 	return signedHeaders
